@@ -75,4 +75,17 @@ let allWagesFor = function () {
     }.bind(this), 0) // <== Hm, why did we need to add bind() there? We'll discuss soon!
 
     return payable
+  }
+
+let findEmployeeByFirstName = function(employeeRecords, firstName) {
+  return employeeRecords.find(record => {
+     return record.firstName === firstName;
+  });
+}
+
+let calculatePayroll = function(employeeRecords) {
+  return employeeRecords.reduce(function(accumulator, record) {
+      return accumulator + allWagesFor.call(record);
+  }, 0);
+
 }
