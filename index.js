@@ -8,7 +8,7 @@
  As a result, the lessons for this function will pass *and* it will be available
  for you to use if you need it!
  */
- function createEmployeeRecord(record) {
+ let createEmployeeRecord = function(record) {
     let employeeRecord = {
         firstName: record[0],
         familyName: record[1],
@@ -18,6 +18,50 @@
         timeOutEvents: []
     };
     return employeeRecord;
+}
+
+let createEmployeeRecords = function(records) {
+    return records.map(record => {
+        return createEmployeeRecord(record);
+    });
+}
+
+let createTimeInEvent = function(dateStamp) {
+    let [date, hour] = dateStamp.split(" ");
+
+    this.timeInEvents.push({
+        type: "TimeIn",
+        hour: parseInt(hour, 10),
+        date: date
+    });
+    return this;
+}
+
+let createTimeOutEvent = function(dateStamp) {
+    let [date, hour] = dateStamp.split(" ");
+    this.timeOutEvents.push ({
+        type: "TimeOut",
+        hour: parseInt(hour, 10),
+        date: date
+    });
+    return this;
+}
+
+let hoursWorkedOnDate = function(date) {
+    let timeInEvent = this.timeInEvents.find(event => {
+       return event.date === date;
+    });
+    let timeOutEvent = this.timeOutEvents.find(event => {
+       return event.date === date;
+    });
+
+    return (timeOutEvent.hour - timeInEvent.hour) / 100;
+
+}
+
+let wagesEarnedOnDate = function(date) {
+    let wagesPayable = this.payPerHour * hoursWorkedOnDate.call(this, date);
+    return wagesPayable;
 }
 
 
